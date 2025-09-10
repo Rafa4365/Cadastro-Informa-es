@@ -75,3 +75,35 @@ Partial Class ListaUsuarios
         End If
     End Sub
 End Class
+Protected Sub btnExportarExcel_Click(sender As Object, e As EventArgs)
+    Response.Clear()
+    Response.Buffer = True
+    Response.AddHeader("content-disposition", "attachment;filename=Cadastros.xls")
+    Response.Charset = ""
+    Response.ContentType = "application/vnd.ms-excel"
+
+    ' Cria GridView temporário
+    Dim gv As New GridView()
+    Using conn As New SqlConnection(connString)
+        Dim cmd As New SqlCommand("SELECT Id, Nome, Email, Telefone, Endereco FROM Usuarios", conn)
+        conn.Open()
+        Dim dt As New DataTable()
+        Dim da As New SqlDataAdapter(cmd)
+        da.Fill(dt)
+        gv.DataSource = dt
+        gv.DataBind()
+    End Using
+
+    ' Renderiza GridView no Excel
+    Dim sw As New System.IO.StringWriter()
+    Dim hw As New System.Web.UI.HtmlTextWriter(sw)
+    gv.RenderControl(hw)
+    Response.Output.Write(sw.ToString())
+    Response.Flush()
+    Response.End()
+End Sub
+
+' Necessário para permitir renderizar GridView fora do Page
+Public Overrides Sub VerifyRenderingInServerForm(control As Control)
+    ' Confirma que o controle pode ser renderizado
+End Sub
