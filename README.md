@@ -56,3 +56,4 @@
     </script>
 </body>
 </html>
+<asp:Button ID="btnVerCadastros" runat="server" Text="Ver Cadastros" PostBackUrl="~/Lista.aspx" />
