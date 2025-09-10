@@ -59,3 +59,5 @@
 </body>
 </html>
 <asp:Button ID="btnVerCadastros" runat="server" Text="Ver Cadastros" PostBackUrl="~/Lista.aspx" />
+<asp:Button ID="btnExportarExcel" runat="server" Text="Exportar para Excel" OnClick="btnExportarExcel_Click" />
+
