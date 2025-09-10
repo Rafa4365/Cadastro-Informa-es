@@ -45,18 +45,6 @@
             <div id="mensagem" runat="server"></div>
         </div>
     </form>
-
-    <script type="text/javascript">
-        function mascaraTelefone(input) {
-            let valor = input.value.replace(/\D/g, '');
-            if (valor.length > 11) valor = valor.substring(0, 11);
-            if (valor.length <= 10) {
-                input.value = valor.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
-            } else {
-                input.value = valor.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3");
-            }
-        }
-    </script>
 </body>
 </html>
     <html xmlns="http://www.w3.org/1999/xhtml">
