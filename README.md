@@ -47,10 +47,8 @@
     </form>
 </body>
 </html>
-    <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Lista de Usuários</title>
-    <style>
+    <head runat="server">
+        <style>
         body { background:#f4f4f4; font-family: Arial, sans-serif; padding:30px; }
         .tabela { width:100%; border-collapse:collapse; background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
         .tabela th, .tabela td { border:1px solid #ddd; padding:8px; text-align:left; }
@@ -75,8 +73,6 @@
                 <asp:BoundField DataField="Endereco" HeaderText="Endereço" />
                 <asp:TemplateField HeaderText="Telefone">
                     <ItemTemplate>
-                        <%# FormatarTelefone(Eval("Telefone").ToString()) %>
-                    </ItemTemplate>
                     <EditItemTemplate>
                         <asp:TextBox ID="txtTelefone" runat="server" Text='<%# Eval("Telefone") %>' MaxLength="15" />
                     </EditItemTemplate>
