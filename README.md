@@ -44,6 +44,7 @@
             <asp:Button ID="btnVerCadastros" runat="server" Text="Ver Cadastros" PostBackUrl="~/Lista.aspx" />
         </div>
     </form>
+
     <script type="text/javascript">
         function mascaraTelefone(input) {
             let valor = input.value.replace(/\D/g, '');
