@@ -44,7 +44,6 @@
             <asp:Button ID="btnVerCadastros" runat="server" Text="Ver Cadastros" PostBackUrl="~/Lista.aspx" />
         </div>
     </form>
-
     <script type="text/javascript">
         function mascaraTelefone(input) {
             let valor = input.value.replace(/\D/g, '');
@@ -62,7 +61,7 @@ Imports System.Data.SqlClient
 Partial Class Cadastro
     Inherits System.Web.UI.Page
     Private connString As String = "Data Source=.\SQLEXPRESS;Initial Catalog=CadastroDB;Integrated Security=True"
-    ' Botão Cadastrar
+    Botão Cadastrar
     Protected Sub btnCadastrar_Click(sender As Object, e As EventArgs)
         Using conn As New SqlConnection(connString)
             Dim query As String = "INSERT INTO Usuarios (Nome, Email, Telefone, Endereco, Senha) VALUES (@Nome, @Email, @Telefone, @Endereco, @Senha)"
