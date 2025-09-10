@@ -41,7 +41,7 @@
                 <input type="password" id="txtSenha" runat="server" />
             </div>
             <button id="btnCadastrar" runat="server" onserverclick="btnCadastrar_Click">Cadastrar</button>
-            <div id="mensagem" runat="server"></div>
+            <asp:Button ID="btnVerCadastros" runat="server" Text="Ver Cadastros" PostBackUrl="~/Lista.aspx" />
         </div>
     </form>
 
@@ -58,4 +58,3 @@
     </script>
 </body>
 </html>
-
