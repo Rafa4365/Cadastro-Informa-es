@@ -140,3 +140,4 @@ End Sub
 Public Overrides Sub VerifyRenderingInServerForm(control As Control)
     ' Confirma que o controle pode ser renderizado
 End Sub
+Private connString As String = "Data Source=.\SQLEXPRESS;Initial Catalog=CadastroDB;Integrated Security=True"
