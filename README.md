@@ -212,3 +212,36 @@ Partial Class Cadastro
         txtSenha.Text = ""
     End Sub
 End Class
+    <!-- Lista de Usuários -->
+    <h1>Lista de Usuários</h1>
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
+        CssClass="tabela" OnRowEditing="GridView1_RowEditing"
+        OnRowCancelingEdit="GridView1_RowCancelingEdit"
+        OnRowUpdating="GridView1_RowUpdating"
+        OnRowCommand="GridView1_RowCommand">
+        <Columns>
+            <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="True" />
+            <asp:BoundField DataField="Nome" HeaderText="Nome" />
+            <asp:BoundField DataField="Email" HeaderText="E-mail" />
+            <asp:BoundField DataField="Endereco" HeaderText="Endereço" />
+            <asp:TemplateField HeaderText="Telefone">
+                <ItemTemplate><%# Eval("Telefone") %></ItemTemplate>
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtTelefoneGrid" runat="server" Text='<%# Bind("Telefone") %>' MaxLength="15" />
+                </EditItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Senha">
+                <ItemTemplate>****</ItemTemplate>
+                <EditItemTemplate>
+                    <asp:TextBox ID="txtSenhaGrid" runat="server" Text='<%# Bind("Senha") %>' TextMode="Password" />
+                </EditItemTemplate>
+            </asp:TemplateField>
+            <asp:CommandField ShowEditButton="True" EditText="Editar" CancelText="Cancelar" UpdateText="Salvar" ButtonType="Button" ControlStyle-CssClass="btn-editar" />
+            <asp:TemplateField HeaderText="Excluir">
+                <ItemTemplate>
+                    <asp:Button ID="btnExcluir" runat="server" Text="Excluir" CommandName="ExcluirUsuario" CommandArgument='<%# Eval("Id") %>' CssClass="btn-excluir" OnClientClick="return confirm('Tem certeza que deseja excluir este usuário?');" />
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+    </asp:GridView>
+</form>
