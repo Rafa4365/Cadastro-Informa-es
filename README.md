@@ -1,3 +1,5 @@
+<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Cadastro.aspx.vb" Inherits="Cadastro" %>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Cadastro de Usuário</title>
