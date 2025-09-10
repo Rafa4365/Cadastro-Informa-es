@@ -1,3 +1,5 @@
+<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Cadastro.aspx.vb" Inherits="Cadastro" %>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Cadastro de Usuário</title>
@@ -39,7 +41,7 @@
                 <input type="password" id="txtSenha" runat="server" />
             </div>
             <button id="btnCadastrar" runat="server" onserverclick="btnCadastrar_Click">Cadastrar</button>
-            <div id="mensagem" runat="server"></div>
+            <asp:Button ID="btnVerCadastros" runat="server" Text="Ver Cadastros" PostBackUrl="~/Lista.aspx" />
         </div>
     </form>
 
@@ -56,72 +58,27 @@
     </script>
 </body>
 </html>
-<asp:Button ID="btnVerCadastros" runat="server" Text="Ver Cadastros" PostBackUrl="~/Lista.aspx" />
-<asp:Button ID="btnExportarExcel" runat="server" Text="Exportar para Excel" OnClick="btnExportarExcel_Click" />
-Protected Sub btnExportarExcel_Click(sender As Object, e As EventArgs)
-    Response.Clear()
-    Response.Buffer = True
-    Response.AddHeader("content-disposition", "attachment;filename=Cadastros.xls")
-    Response.Charset = ""
-    Response.ContentType = "application/vnd.ms-excel"
+Imports System.Data.SqlClient
+Imports System.Web.UI.WebControls
 
-    ' Cria GridView temporário
-    Dim gv As New GridView()
-    Using conn As New SqlConnection(connString)
-        Dim cmd As New SqlCommand("SELECT Id, Nome, Email, Telefone, Endereco FROM Usuarios", conn)
-        conn.Open()
-        Dim dt As New DataTable()
-        Dim da As New SqlDataAdapter(cmd)
-        da.Fill(dt)
-        gv.DataSource = dt
-        gv.DataBind()
-    End Using
+Partial Class Cadastro
+    Inherits System.Web.UI.Page
 
-    ' Renderiza GridView no Excel
-    Dim sw As New System.IO.StringWriter()
-    Dim hw As New System.Web.UI.HtmlTextWriter(sw)
-    gv.RenderControl(hw)
-    Response.Output.Write(sw.ToString())
-    Response.Flush()
-    Response.End()
-End Sub
+    Private connString As String = "Data Source=.\SQLEXPRESS;Initial Catalog=CadastroDB;Integrated Security=True"
 
-' Necessário para permitir renderizar GridView fora do Page
-Public Overrides Sub VerifyRenderingInServerForm(control As Control)
-    ' Confirma que o controle pode ser renderizado
-End Sub
-Protected Sub btnExportarExcel_Click(sender As Object, e As EventArgs)
-    ' Limpa a resposta e configura para Excel
-    Response.Clear()
-    Response.Buffer = True
-    Response.AddHeader("content-disposition", "attachment;filename=Cadastros.xls")
-    Response.Charset = ""
-    Response.ContentType = "application/vnd.ms-excel"
-
-    ' Cria GridView temporário para exportar os dados
-    Dim gv As New GridView()
-    Using conn As New SqlConnection(connString)
-        Dim cmd As New SqlCommand("SELECT Id, Nome, Email, Telefone, Endereco FROM Usuarios", conn)
-        conn.Open()
-        Dim dt As New DataTable()
-        Dim da As New SqlDataAdapter(cmd)
-        da.Fill(dt)
-        gv.DataSource = dt
-        gv.DataBind()
-    End Using
-
-    ' Renderiza o GridView no Excel
-    Dim sw As New System.IO.StringWriter()
-    Dim hw As New System.Web.UI.HtmlTextWriter(sw)
-    gv.RenderControl(hw)
-    Response.Output.Write(sw.ToString())
-    Response.Flush()
-    Response.End()
-End Sub
-
-' Necessário para permitir renderizar GridView fora do Page
-Public Overrides Sub VerifyRenderingInServerForm(control As Control)
-    ' Confirma que o controle pode ser renderizado
-End Sub
-<asp:Button ID="btnExportarExcel" runat="server" Text="Exportar para Excel" OnClick="btnExportarExcel_Click" />
-
+    ' Botão Cadastrar
+    Protected Sub btnCadastrar_Click(sender As Object, e As EventArgs)
+        Using conn As New SqlConnection(connString)
+            Dim query As String = "INSERT INTO Usuarios (Nome, Email, Telefone, Endereco, Senha) VALUES (@Nome, @Email, @Telefone, @Endereco, @Senha)"
+            Dim cmd As New SqlCommand(query, conn)
+            cmd.Parameters.AddWithValue("@Nome", txtNome.Value)
+            cmd.Parameters.AddWithValue("@Email", txtEmail.Value)
+            cmd.Parameters.AddWithValue("@Telefone", txtTelefone.Value)
+            cmd.Parameters.AddWithValue("@Endereco", txtEndereco.Value)
+            cmd.Parameters.AddWithValue("@Senha", txtSenha.Value)
+            conn.Open()
+            cmd.ExecuteNonQuery()
+        End Using
+        Response.Redirect("Lista.aspx") ' Redireciona para a lista após cadastrar
+    End Sub
+End Class
