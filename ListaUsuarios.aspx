@@ -48,4 +48,5 @@
     </form>
 </body>
 </html>
+<asp:Button ID="btnExportarExcel" runat="server" Text="Exportar para Excel" OnClick="btnExportarExcel_Click" />
 
