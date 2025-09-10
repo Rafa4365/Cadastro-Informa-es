@@ -1,12 +1,26 @@
--- Criação da tabela Usuarios
+-- 1. Criar o banco de dados
+CREATE DATABASE CadastroDB;
+GO
+
+-- 2. Usar o banco de dados criado
+USE CadastroDB;
+GO
+
+-- 3. Criar a tabela Usuarios
 CREATE TABLE Usuarios (
-    Id INT PRIMARY KEY IDENTITY(1,1),
+    Id INT IDENTITY(1,1) PRIMARY KEY,
     Nome NVARCHAR(100) NOT NULL,
     Email NVARCHAR(100) NOT NULL,
-    Telefone NVARCHAR(20) NULL,
-    Endereco NVARCHAR(200) NULL,
-    Senha NVARCHAR(100) NOT NULL
+    Telefone NVARCHAR(15) NOT NULL,
+    Endereco NVARCHAR(200) NOT NULL,
+    Senha NVARCHAR(50) NOT NULL
 );
+GO
 
--- Índice único no e-mail
-CREATE UNIQUE INDEX UX_Usuarios_Email ON Usuarios(Email);
+-- 4. Inserir alguns cadastros de teste
+INSERT INTO Usuarios (Nome, Email, Telefone, Endereco, Senha)
+VALUES
+('Rafael Silva', 'rafael@email.com', '(11) 91234-5678', 'Rua A, 123, São Paulo', 'senha123'),
+('Maria Oliveira', 'maria@email.com', '(21) 99876-5432', 'Av. B, 456, Rio de Janeiro', 'maria456'),
+('João Souza', 'joao@email.com', '(31) 98765-4321', 'Rua C, 789, Belo Horizonte', 'joao789');
+GO
