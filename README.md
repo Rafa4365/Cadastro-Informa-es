@@ -60,12 +60,9 @@
 </html>
 Imports System.Data.SqlClient
 Imports System.Web.UI.WebControls
-
 Partial Class Cadastro
     Inherits System.Web.UI.Page
-
     Private connString As String = "Data Source=.\SQLEXPRESS;Initial Catalog=CadastroDB;Integrated Security=True"
-
     ' Botão Cadastrar
     Protected Sub btnCadastrar_Click(sender As Object, e As EventArgs)
         Using conn As New SqlConnection(connString)
