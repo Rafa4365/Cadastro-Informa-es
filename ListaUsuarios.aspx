@@ -49,4 +49,24 @@
 </body>
 </html>
 <asp:Button ID="btnExportarExcel" runat="server" Text="Exportar para Excel" OnClick="btnExportarExcel_Click" />
+Imports System.Data.SqlClient Imports System.Web.UI.WebControls
 
+Partial Class Cadastro Inherits System.Web.UI.Page
+
+Private connString As String = "Data Source=.\SQLEXPRESS;Initial Catalog=CadastroDB;Integrated Security=True"
+
+' Botão Cadastrar
+Protected Sub btnCadastrar_Click(sender As Object, e As EventArgs)
+    Using conn As New SqlConnection(connString)
+        Dim query As String = "INSERT INTO Usuarios (Nome, Email, Telefone, Endereco, Senha) VALUES (@Nome, @Email, @Telefone, @Endereco, @Senha)"
+        Dim cmd As New SqlCommand(query, conn)
+        cmd.Parameters.AddWithValue("@Nome", txtNome.Value)
+        cmd.Parameters.AddWithValue("@Email", txtEmail.Value)
+        cmd.Parameters.AddWithValue("@Telefone", txtTelefone.Value)
+        cmd.Parameters.AddWithValue("@Endereco", txtEndereco.Value)
+        cmd.Parameters.AddWithValue("@Senha", txtSenha.Value)
+        conn.Open()
+        cmd.ExecuteNonQuery()
+    End Using
+    Response.Redirect("Lista.aspx") ' Redireciona para a lista após cadastrar
+End Sub End Class
