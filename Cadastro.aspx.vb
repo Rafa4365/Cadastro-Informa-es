@@ -123,3 +123,14 @@ Partial Class Cadastro
         txtSenha.Text = ""
     End Sub
 End Class
+Using conn As New SqlConnection(connString)
+    Dim query As String = "INSERT INTO Usuarios (Nome, Email, Telefone, Endereco, Senha) VALUES (@Nome,@Email,@Telefone,@Endereco,@Senha)"
+    Dim cmd As New SqlCommand(query, conn)
+    cmd.Parameters.AddWithValue("@Nome", txtNome.Text)
+    cmd.Parameters.AddWithValue("@Email", txtEmail.Text)
+    cmd.Parameters.AddWithValue("@Telefone", txtTelefone.Text)
+    cmd.Parameters.AddWithValue("@Endereco", txtEndereco.Text)
+    cmd.Parameters.AddWithValue("@Senha", txtSenha.Text)
+    conn.Open()
+    cmd.ExecuteNonQuery()
+End Using
